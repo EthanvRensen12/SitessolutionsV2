@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Sites Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+    <style>
+        /* ═══ PAGE HERO */
+        .page-hero {
+            padding: 12rem 0 7rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero-bg {
+            position: absolute;
+            top: 0; right: -200px;
+            width: 700px; height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(39,238,245,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .page-hero-inner {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+        .hero-right-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .hrp-top {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            background: rgba(39,142,245,0.04);
+            display: flex; align-items: center; gap: 1rem;
+        }
+        .hrp-dots { display:flex; gap:0.4rem; }
+        .hrp-dot { width:8px;height:8px;border-radius:50%; }
+        .hrp-dot:nth-child(1) { background:rgba(255,80,80,0.5); }
+        .hrp-dot:nth-child(2) { background:rgba(255,200,0,0.4); }
+        .hrp-dot:nth-child(3) { background:rgba(39,238,245,0.4); }
+        .hrp-label { font-family:'Space Mono',monospace; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); }
+        .hrp-body { padding: 2rem; }
+        .hrp-stat-row {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .hrp-stat-row:last-child { border-bottom: none; }
+        .hrp-stat-label { font-size: 0.82rem; color: var(--text-muted); }
+        .hrp-stat-val { font-family: 'Space Mono', monospace; font-size: 0.82rem; color: var(--cyan); }
+
+        /* ═══ MISSION SECTION */
+        .mission { padding: 8rem 0; border-top: 1px solid var(--border); }
+        .mission-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 7rem;
+            align-items: start;
+        }
+        .mission-quote {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.25;
+            color: var(--white);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .mission-quote::before {
+            content: '"';
+            position: absolute;
+            top: -2rem; left: -1rem;
+            font-size: 6rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--blue), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.2;
+            line-height: 1;
+            pointer-events: none;
+        }
+        .mission-body p {
+            font-size: 1.05rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        /* ═══ VALUES */
+        .values { padding: 8rem 0; background: var(--surface-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 5rem;
+        }
+        .value-card {
+            background: var(--surface);
+            padding: 3rem 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.4s;
+        }
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, var(--blue), var(--cyan));
+            transform: scaleX(0); transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        .value-card:hover { background: rgba(8,18,32,0.9); }
+        .value-card:hover::before { transform: scaleX(1); }
+        .vc-icon {
+            width: 52px; height: 52px;
+            background: var(--blue-dim);
+            border: 1px solid rgba(39,142,245,0.25);
+            border-radius: 3px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; color: var(--blue);
+            margin-bottom: 1.8rem;
+            transition: all 0.3s;
+        }
+        .value-card:hover .vc-icon { background: rgba(39,238,245,0.1); border-color: rgba(39,238,245,0.4); color: var(--cyan); box-shadow: 0 0 20px rgba(39,238,245,0.15); }
+        .vc-title { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+        .vc-desc { font-size: 0.92rem; font-weight: 300; line-height: 1.75; color: var(--text-muted); }
+
+        /* ═══ WHY US */
+        .why-us { padding: 8rem 0; }
+        .why-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: start;
+        }
+        .why-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .why-item {
+            padding: 1.8rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            background: var(--surface);
+            transition: background 0.3s;
+        }
+        .why-item:last-child { border-bottom: none; }
+        .why-item:hover { background: rgba(10,18,32,0.9); }
+        .wi-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            color: var(--blue);
+            flex-shrink: 0;
+            padding-top: 0.2rem;
+        }
+        .wi-content h4 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+        .wi-content p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+        /* ═══ TESTIMONIAL */
+        .testimonials { padding: 8rem 0; background: var(--surface-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .t-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 5rem;
+        }
+        .t-card {
+            background: var(--surface);
+            padding: 3rem;
+            position: relative;
+        }
+        .t-card-quote {
+            font-size: 3rem;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            color: var(--blue);
+            opacity: 0.3;
+            line-height: 0.8;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        .t-card-text {
+            font-size: 1rem;
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 2rem;
+        }
+        .t-card-author { display: flex; align-items: center; gap: 0.75rem; }
+        .t-card-avatar {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue), var(--cyan));
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Syne', sans-serif; font-weight: 800; color: var(--black); font-size: 0.9rem;
+        }
+        .t-card-name { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; color: var(--blue); }
+
+        /* ═══ CTA */
+        .cta-banner { padding:7rem 0; }
+        .cta-inner {
+            background:linear-gradient(135deg,rgba(39,142,245,0.12) 0%,rgba(39,238,245,0.06) 100%);
+            border:1px solid rgba(39,142,245,0.3); border-radius:4px;
+            padding:5rem 4rem; text-align:center; position:relative; overflow:hidden;
+        }
+        .cta-inner::before {
+            content:''; position:absolute; top:-100%;left:-100%; width:300%;height:300%;
+            background:radial-gradient(circle at center,rgba(39,142,245,0.06) 0%,transparent 60%);
+            animation:cta-glow 8s ease-in-out infinite;
+        }
+        @keyframes cta-glow { 0%,100%{transform:translate(0,0)} 25%{transform:translate(20%,10%)} 50%{transform:translate(-10%,20%)} 75%{transform:translate(10%,-10%)} }
+        .cta-inner h2 { font-family:'Syne',sans-serif; font-size:clamp(2rem,4vw,3.5rem); font-weight:800; letter-spacing:-0.03em; margin-bottom:1.2rem; position:relative;z-index:1; }
+        .cta-inner p { font-size:1.05rem; color:var(--text-muted); margin-bottom:2.5rem; position:relative;z-index:1; }
+        .cta-inner .btn-primary { position:relative; z-index:1; }
+
+        @media(max-width:1100px) {
+            .page-hero-inner, .mission-inner, .why-inner { grid-template-columns:1fr; gap:3rem; }
+            .hero-right-panel { display:none; }
+            .values-grid { grid-template-columns:1fr; }
+            .t-grid { grid-template-columns:1fr; }
+        }
+        @media(max-width:768px) {
+            .cta-inner { padding:3.5rem 2rem; }
+        }
+    </style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<canvas id="bg-canvas"></canvas>
+
+<header id="header">
+    <a href="index.html" class="logo">
+        <img src="LogoFinal.png" alt="Sites Solutions" class="logo-img" onerror="this.style.display='none'">
+        <span class="logo-wordmark">Sites Solutions</span>
+    </a>
+    <nav id="nav">
+        <a href="index.html">Home</a>
+        <a href="what-we-do.html">What We Do</a>
+        <a href="about.html" class="nav-active">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="contact.html" class="nav-cta">Get Started</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="container">
+        <div class="page-hero-inner">
+            <div class="reveal">
+                <div class="section-tag">Our Story</div>
+                <h1 class="section-title" style="font-size:clamp(2.8rem,5vw,5rem);margin-bottom:1.5rem;">
+                    We believe<br>technology should<br><span class="accent">work for you.</span>
+                </h1>
+                <p class="section-sub">Sites Solutions was built on a simple conviction: businesses deserve a technology partner that's genuinely invested in their success — not just another vendor selling services.</p>
+                <div style="margin-top:2.5rem;display:flex;gap:1.2rem;flex-wrap:wrap;">
+                    <a href="what-we-do.html" class="btn-primary"><span>What We Do</span></a>
+                    <a href="contact.html" class="btn-ghost">Talk to Us</a>
+                </div>
+            </div>
+            <div class="hero-right-panel reveal reveal-delay-2">
+                <div class="hrp-top">
+                    <div class="hrp-dots"><div class="hrp-dot"></div><div class="hrp-dot"></div><div class="hrp-dot"></div></div>
+                    <span class="hrp-label">Company Overview</span>
+                </div>
+                <div class="hrp-body">
+                    <div class="hrp-stat-row">
+                        <span class="hrp-stat-label">Founded</span>
+                        <span class="hrp-stat-val">2022</span>
+                    </div>
+                    <div class="hrp-stat-row">
+                        <span class="hrp-stat-label">Based in</span>
+                        <span class="hrp-stat-val">South Africa</span>
+                    </div>
+                    <div class="hrp-stat-row">
+                        <span class="hrp-stat-label">Clients Served</span>
+                        <span class="hrp-stat-val">247+</span>
+                    </div>
+                    <div class="hrp-stat-row">
+                        <span class="hrp-stat-label">Core Services</span>
+                        <span class="hrp-stat-val">3 Pillars</span>
+                    </div>
+                    <div class="hrp-stat-row">
+                        <span class="hrp-stat-label">Support Hours</span>
+                        <span class="hrp-stat-val">24 / 7 / 365</span>
+                    </div>
+                    <div class="hrp-stat-row">
+                        <span class="hrp-stat-label">Uptime SLA</span>
+                        <span class="hrp-stat-val">99.9%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MISSION -->
+<section class="mission">
+    <div class="container">
+        <div class="mission-inner">
+            <div class="reveal">
+                <blockquote class="mission-quote">
+                    To be the trusted technology partner for businesses that want to grow.
+                </blockquote>
+                <a href="contact.html" class="btn-ghost" style="margin-top:1rem;">Work With Us</a>
+            </div>
+            <div class="mission-body reveal reveal-delay-1">
+                <div class="section-tag" style="margin-bottom:2rem;">Our Mission</div>
+                <p>Sites Solutions exists to close the gap between where businesses are and where they need to be digitally. We saw too many companies stuck with outdated infrastructure, insecure networks, and websites that didn't convert — not because they didn't care, but because they didn't have the right partner.</p>
+                <p>We built Sites Solutions to be that partner. One team. Three core capabilities. An obsessive focus on your outcomes.</p>
+                <p>Whether you're a startup building your first digital presence or an established business that needs to modernise and secure its infrastructure — we meet you where you are and take you where you need to go.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+    <div class="container">
+        <div class="reveal">
+            <div class="section-tag">What Drives Us</div>
+            <h2 class="section-title">Our values aren't<br><span class="accent">just words.</span></h2>
+        </div>
+        <div class="values-grid reveal reveal-delay-1">
+            <div class="value-card">
+                <div class="vc-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3 class="vc-title">Security First</h3>
+                <p class="vc-desc">Every solution we design starts with security as the foundation. It's not an add-on — it's core architecture. Because a compromised system is a failed system.</p>
+            </div>
+            <div class="value-card">
+                <div class="vc-icon"><i class="fas fa-handshake"></i></div>
+                <h3 class="vc-title">True Partnership</h3>
+                <p class="vc-desc">We don't do vendor relationships. We become part of your team, invested in your success. Your growth is our growth. We win when you win.</p>
+            </div>
+            <div class="value-card">
+                <div class="vc-icon"><i class="fas fa-brain"></i></div>
+                <h3 class="vc-title">Always Forward</h3>
+                <p class="vc-desc">Technology evolves fast. We stay perpetually ahead — testing emerging tools, refining our methods, and ensuring your business never falls behind the curve.</p>
+            </div>
+            <div class="value-card">
+                <div class="vc-icon"><i class="fas fa-bolt"></i></div>
+                <h3 class="vc-title">Bias for Action</h3>
+                <p class="vc-desc">We move fast without breaking things. When you need a solution, we build it. When something breaks, we fix it. Decisiveness and reliability — always.</p>
+            </div>
+            <div class="value-card">
+                <div class="vc-icon"><i class="fas fa-eye"></i></div>
+                <h3 class="vc-title">Radical Transparency</h3>
+                <p class="vc-desc">No hidden costs, no techno-jargon to confuse, no surprises. We explain what we're doing, why we're doing it, and what it will cost — in plain language.</p>
+            </div>
+            <div class="value-card">
+                <div class="vc-icon"><i class="fas fa-infinity"></i></div>
+                <h3 class="vc-title">Long-Term Thinking</h3>
+                <p class="vc-desc">We build for where you're going, not just where you are. Every system, every line of code, every recommendation is made with scalability and longevity in mind.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-us">
+    <div class="container">
+        <div class="why-inner">
+            <div class="reveal">
+                <div class="section-tag">Why Sites Solutions</div>
+                <h2 class="section-title">The difference<br>is in <span class="accent">how we think.</span></h2>
+                <p class="section-sub" style="margin-top:1.5rem;">Most IT companies react to problems. We predict and prevent them. Most web agencies deliver and disappear. We stay. That's the Sites Solutions difference.</p>
+                <a href="contact.html" class="btn-primary" style="margin-top:2.5rem;display:inline-flex;"><span>Get Started Today</span></a>
+            </div>
+            <div class="why-list reveal reveal-delay-2">
+                <div class="why-item">
+                    <span class="wi-num">01</span>
+                    <div class="wi-content">
+                        <h4>One Partner, Full Stack</h4>
+                        <p>Web, IT, and security under one roof. No finger-pointing between vendors, no gaps in coverage.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <span class="wi-num">02</span>
+                    <div class="wi-content">
+                        <h4>Proactive, Not Reactive</h4>
+                        <p>Our monitoring and AI systems catch threats and issues before you even know they exist.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <span class="wi-num">03</span>
+                    <div class="wi-content">
+                        <h4>Built for Growth</h4>
+                        <p>Every solution is architected to scale. You won't outgrow us — we grow with you.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <span class="wi-num">04</span>
+                    <div class="wi-content">
+                        <h4>Truly Available</h4>
+                        <p>24/7 support that actually answers. Real humans, real expertise, rapid resolution.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <span class="wi-num">05</span>
+                    <div class="wi-content">
+                        <h4>South African Roots, Global Standards</h4>
+                        <p>We understand the local landscape while delivering world-class technology solutions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+    <div class="container">
+        <div class="reveal">
+            <div class="section-tag">What Clients Say</div>
+            <h2 class="section-title">Don't take our<br><span class="accent">word for it.</span></h2>
+        </div>
+        <div class="t-grid reveal reveal-delay-1">
+            <div class="t-card">
+                <span class="t-card-quote">"</span>
+                <p class="t-card-text">I've been working with Sites Solutions for a few months now, and the difference in our digital setup is night and day. Really impressed with how they understand our business needs.</p>
+                <div class="t-card-author">
+                    <div class="t-card-avatar">L</div>
+                    <span class="t-card-name">Lauren Smith — Client</span>
+                </div>
+            </div>
+            <div class="t-card">
+                <span class="t-card-quote">"</span>
+                <p class="t-card-text">Finally, a tech partner that speaks plain English. They handled our entire IT setup and the new website has genuinely increased our enquiries. Best investment we've made.</p>
+                <div class="t-card-author">
+                    <div class="t-card-avatar">M</div>
+                    <span class="t-card-name">Mark Hendricks — Business Owner</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-banner">
+    <div class="container">
+        <div class="cta-inner reveal">
+            <h2>Ready to work<br><span class="accent">together?</span></h2>
+            <p>Let's have a conversation about where your business is and where you want it to go</p>
+            <a href="contact.html" class="btn-primary"><span>Book a Free Consultation</span></a>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-top">
+            <div>
+                <div class="footer-logo-text">Sites Solutions</div>
+                <div class="footer-tagline">Power Your Digital Future — Where vision meets execution.</div>
+            </div>
+            <div class="footer-nav-links">
+                <a href="index.html">Home</a>
+                <a href="what-we-do.html">What We Do</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="social-row">
+                <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-copy">© 2025 SitesSolutions. All rights reserved.</span>
+            <span class="footer-copy">Ethan@sitessolutions.co.za · +27 83 298 5934</span>
+        </div>
+    </div>
+</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>

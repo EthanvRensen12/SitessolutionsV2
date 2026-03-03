@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Sites Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+    <style>
+        /* ═══ CONTACT PAGE HERO */
+        .contact-hero {
+            padding: 12rem 0 5rem;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+        }
+        .contact-hero-bg {
+            position: absolute;
+            top: -200px; left: 50%;
+            transform: translateX(-50%);
+            width: 900px; height: 900px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(39,142,245,0.06) 0%, transparent 65%);
+            pointer-events: none;
+        }
+        .contact-hero-inner {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ═══ CONTACT STRIP */
+        .contact-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 5rem 0;
+        }
+        .cs-item {
+            background: var(--surface);
+            padding: 2.5rem 2rem;
+            border-right: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: background 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+        .cs-item:last-child { border-right: none; }
+        .cs-item:hover { background: rgba(10,18,32,0.9); }
+        .cs-icon {
+            width: 52px; height: 52px; flex-shrink: 0;
+            background: var(--blue-dim); border: 1px solid rgba(39,142,245,0.25);
+            border-radius: 3px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; color: var(--blue); transition: all 0.3s;
+        }
+        .cs-item:hover .cs-icon { background: rgba(39,238,245,0.1); border-color: rgba(39,238,245,0.4); color: var(--cyan); box-shadow: 0 0 20px rgba(39,238,245,0.15); }
+        .cs-text {}
+        .cs-label { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.4rem; }
+        .cs-val { font-size: 0.95rem; font-weight: 500; color: var(--white); }
+
+        /* ═══ MAIN CONTACT FORM SECTION */
+        .contact-main { padding: 0 0 8rem; }
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        /* Left side info */
+        .contact-left {}
+        .contact-left-intro {
+            font-size: 1.05rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+        }
+
+        .why-contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+        .wcl-item {
+            padding: 1.2rem 1.6rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: var(--surface);
+            transition: background 0.3s;
+        }
+        .wcl-item:last-child { border-bottom: none; }
+        .wcl-item:hover { background: rgba(10,18,32,0.9); }
+        .wcl-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--blue); flex-shrink: 0; margin-top: 0.55em;
+        }
+        .wcl-text { font-size: 0.9rem; color: rgba(255,255,255,0.75); line-height: 1.5; }
+
+        .hours-block {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .hours-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            background: rgba(39,142,245,0.04);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.9rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .hours-row:last-child { border-bottom: none; }
+        .hours-day { font-size: 0.85rem; color: var(--text-muted); }
+        .hours-time { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--cyan); }
+        .hours-status {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em;
+            color: var(--cyan);
+        }
+        .hours-status::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); animation: blink 1.5s infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+        /* RIGHT — FORM */
+        .form-wrap {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: visible;
+            width: 100%;
+        }
+        .form-head {
+            padding: 2rem 2.5rem;
+            border-bottom: 1px solid var(--border);
+            background: rgba(39,142,245,0.04);
+            border-radius: 4px 4px 0 0;
+        }
+        .form-head h3 { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
+        .form-head p { font-size: 0.88rem; color: var(--text-muted); }
+        .form-body {
+            padding: 2rem 2.5rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        .fg {
+            display: flex; flex-direction: column; gap: 0.55rem;
+            min-width: 0; width: 100%;
+        }
+        .fg label {
+            font-family: 'Space Mono', monospace; font-size: 0.68rem;
+            letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
+        }
+        .fg input, .fg textarea, .fg select {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(39,142,245,0.25);
+            border-radius: 2px; color: var(--white);
+            font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+            padding: 0.9rem 1.1rem; transition: all 0.3s; outline: none;
+            width: 100%; box-sizing: border-box;
+        }
+        .fg input::placeholder, .fg textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .fg input:focus, .fg textarea:focus, .fg select:focus {
+            border-color: var(--blue); background: rgba(39,142,245,0.06);
+            box-shadow: 0 0 0 3px rgba(39,142,245,0.1);
+        }
+        .fg textarea { min-height: 140px; resize: vertical; }
+        .fg select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23278EF5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 1rem center; cursor: none;
+        }
+        .fg select option { background: #0c1220; }
+
+        .form-row-2 {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 1.2rem; min-width: 0; width: 100%;
+        }
+        .form-row-2 > * { min-width: 0; }
+
+        /* Service checkboxes */
+        .service-checks {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 0.25rem;
+        }
+        .check-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 1rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(39,142,245,0.2);
+            border-radius: 2px;
+            cursor: none;
+            transition: all 0.25s;
+            user-select: none;
+        }
+        .check-option:hover { background: rgba(39,142,245,0.08); border-color: rgba(39,142,245,0.4); }
+        .check-option input[type="checkbox"] { display: none; }
+        .check-box {
+            width: 16px; height: 16px; flex-shrink: 0;
+            border: 1px solid rgba(39,142,245,0.4);
+            border-radius: 2px; background: transparent;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s; font-size: 0.6rem; color: var(--black);
+        }
+        .check-option.checked { background: rgba(39,142,245,0.1); border-color: var(--blue); }
+        .check-option.checked .check-box { background: linear-gradient(135deg, var(--blue), var(--cyan)); border-color: transparent; }
+        .check-option.checked .check-box::after { content: '✓'; color: var(--black); font-weight: 700; }
+        .check-label { font-size: 0.85rem; color: rgba(255,255,255,0.75); }
+
+        .btn-submit {
+            width: 100%;
+            font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700;
+            letter-spacing: 0.1em; text-transform: uppercase; color: var(--black);
+            background: linear-gradient(90deg, var(--blue), var(--cyan));
+            border: none; padding: 1.1rem; border-radius: 2px; cursor: none;
+            transition: all 0.3s; box-shadow: 0 0 25px var(--blue-glow);
+            position: relative; overflow: hidden;
+        }
+        .btn-submit::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(90deg, var(--cyan), var(--blue));
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .btn-submit:hover { box-shadow: 0 0 45px var(--cyan-glow); transform: translateY(-1px); }
+        .btn-submit:hover::after { opacity: 1; }
+        .btn-submit span { position: relative; z-index: 1; }
+
+        #formStatus {
+            margin-top: 0.5rem; font-size: 0.88rem; text-align: center;
+            display: none; padding: 0.8rem; border-radius: 2px;
+        }
+
+        /* ═══ FAQ */
+        .faq-section { padding: 8rem 0; background: var(--surface-2); border-top: 1px solid var(--border); }
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 5rem;
+        }
+        .faq-item {
+            background: var(--surface);
+            padding: 2.5rem 2rem;
+            transition: background 0.3s;
+        }
+        .faq-item:hover { background: rgba(10,18,32,0.9); }
+        .faq-q { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.01em; }
+        .faq-a { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+
+        @media(max-width:1100px) {
+            .contact-layout { grid-template-columns: 1fr; gap: 3.5rem; }
+            .contact-strip { grid-template-columns: 1fr; }
+            .cs-item { border-right: none; border-bottom: 1px solid var(--border); }
+            .cs-item:last-child { border-bottom: none; }
+            .faq-grid { grid-template-columns: 1fr; }
+        }
+        @media(max-width:768px) {
+            .form-row-2 { grid-template-columns: 1fr; }
+            .service-checks { grid-template-columns: 1fr; }
+            .form-body { padding: 1.5rem; }
+            .form-head { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<canvas id="bg-canvas"></canvas>
+
+<header id="header">
+    <a href="index.html" class="logo">
+        <img src="LogoFinal.png" alt="Sites Solutions" class="logo-img" onerror="this.style.display='none'">
+        <span class="logo-wordmark">Sites Solutions</span>
+    </a>
+    <nav id="nav">
+        <a href="index.html">Home</a>
+        <a href="what-we-do.html">What We Do</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="nav-active">Contact</a>
+        <a href="contact.html" class="nav-cta">Get Started</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
+</header>
+
+<!-- CONTACT HERO -->
+<section class="contact-hero">
+    <div class="contact-hero-bg"></div>
+    <div class="container">
+        <div class="contact-hero-inner reveal">
+            <div class="section-tag" style="justify-content:center;">Get In Touch</div>
+            <h1 class="section-title" style="font-size:clamp(2.8rem,5vw,5rem);margin-bottom:1.5rem;">
+                Let's build something<br><span class="accent">extraordinary.</span>
+            </h1>
+            <p class="section-sub" style="margin:0 auto;">Whether you have a clear brief or just a direction — we're ready to listen, advise, and get to work. Free consultation, no pressure.</p>
+        </div>
+    </div>
+</section>
+
+<!-- MAIN CONTACT -->
+<section class="contact-main">
+    <div class="container">
+        <!-- CONTACT INFO STRIP -->
+        <div class="contact-strip reveal">
+            <a href="mailto:Ethan@sitessolutions.co.za" class="cs-item">
+                <div class="cs-icon"><i class="fas fa-envelope"></i></div>
+                <div class="cs-text">
+                    <div class="cs-label">Email Us</div>
+                    <div class="cs-val">Ethan@sitessolutions.co.za</div>
+                </div>
+            </a>
+            <a href="tel:+27832985934" class="cs-item">
+                <div class="cs-icon"><i class="fas fa-phone"></i></div>
+                <div class="cs-text">
+                    <div class="cs-label">Call Us</div>
+                    <div class="cs-val">+27 83 298 5934</div>
+                </div>
+            </a>
+            <div class="cs-item">
+                <div class="cs-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="cs-text">
+                    <div class="cs-label">Based In</div>
+                    <div class="cs-val">South Africa · Remote-Capable</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORM + INFO LAYOUT -->
+        <div class="contact-layout">
+            <!-- LEFT INFO -->
+            <div class="contact-left reveal">
+                <div class="section-tag">Why Reach Out</div>
+                <h2 class="section-title" style="font-size:clamp(1.8rem,3vw,2.6rem);margin-bottom:1.5rem;">
+                    A free consultation.<br><span class="accent">Zero obligations.</span>
+                </h2>
+                <p class="contact-left-intro">In our first call, we'll dig into your current setup, understand your goals, and give you honest advice — whether you become a client or not. We'd rather earn your trust than pressure a sale.</p>
+
+                <div class="why-contact-list">
+                    <div class="wcl-item">
+                        <div class="wcl-dot"></div>
+                        <span class="wcl-text">Response within 24 hours, guaranteed</span>
+                    </div>
+                    <div class="wcl-item">
+                        <div class="wcl-dot"></div>
+                        <span class="wcl-text">Free 30-minute strategy consultation</span>
+                    </div>
+                    <div class="wcl-item">
+                        <div class="wcl-dot"></div>
+                        <span class="wcl-text">Custom proposal tailored to your needs</span>
+                    </div>
+                    <div class="wcl-item">
+                        <div class="wcl-dot"></div>
+                        <span class="wcl-text">No pushy sales tactics — ever</span>
+                    </div>
+                    <div class="wcl-item">
+                        <div class="wcl-dot"></div>
+                        <span class="wcl-text">Clear pricing, no hidden costs</span>
+                    </div>
+                </div>
+
+                <div class="hours-block">
+                    <div class="hours-header">Business Hours</div>
+                    <div class="hours-row">
+                        <span class="hours-day">Monday – Friday</span>
+                        <span class="hours-time">8:00 AM – 4:00 PM</span>
+                    </div>
+                    <div class="hours-row">
+                        <span class="hours-day">Saturday</span>
+                        <span class="hours-time">By appointment</span>
+                    </div>
+                    <div class="hours-row">
+                        <span class="hours-day">Emergency Support</span>
+                        <span class="hours-status">Always On</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FORM -->
+            <div class="form-wrap reveal reveal-delay-2">
+                <div class="form-head">
+                    <h3>Get Your Free Consultation</h3>
+                    <p>Fill out the form and we'll get back to you within 24 hours</p>
+                </div>
+                <div class="form-body">
+                    <form id="projectForm" action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="0701edbb-4be2-445f-bceb-e3976f450cda">
+                        <input type="hidden" name="subject" value="New Contact from Sitessolutions.co.za">
+                        <input type="hidden" name="from_name" value="Site Solutions Website">
+                        <input type="checkbox" name="botcheck" style="display:none">
+
+                        <div style="display:flex;flex-direction:column;gap:1.4rem;width:100%;box-sizing:border-box;">
+                            <div class="form-row-2">
+                                <div class="fg">
+                                    <label for="name">Your Name</label>
+                                    <input type="text" id="name" name="name" placeholder="John Smith" required>
+                                </div>
+                                <div class="fg">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" name="email" placeholder="john@company.com" required>
+                                </div>
+                            </div>
+                            <div class="form-row-2">
+                                <div class="fg">
+                                    <label for="company">Company Name</label>
+                                    <input type="text" id="company" name="company" placeholder="Your Company">
+                                </div>
+                                <div class="fg">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone" placeholder="+27 00 000 0000">
+                                </div>
+                            </div>
+                            <div class="fg">
+                                <label>Services Interested In</label>
+                                <div class="service-checks" id="serviceChecks">
+                                    <div class="check-option" data-value="Digital Foundation">
+                                        <input type="checkbox" name="service_foundation">
+                                        <div class="check-box"></div>
+                                        <span class="check-label">Digital Foundation</span>
+                                    </div>
+                                    <div class="check-option" data-value="IT Support">
+                                        <input type="checkbox" name="service_it">
+                                        <div class="check-box"></div>
+                                        <span class="check-label">IT Support</span>
+                                    </div>
+                                    <div class="check-option" data-value="Cyber Security">
+                                        <input type="checkbox" name="service_security">
+                                        <div class="check-box"></div>
+                                        <span class="check-label">Cyber Security</span>
+                                    </div>
+                                    <div class="check-option" data-value="Custom Software">
+                                        <input type="checkbox" name="service_software">
+                                        <div class="check-box"></div>
+                                        <span class="check-label">Custom Software</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fg">
+                                <label for="timeline">Project Timeline</label>
+                                <select id="timeline" name="timeline" required>
+                                    <option value="" disabled selected>Select timeline</option>
+                                    <option value="ASAP">ASAP</option>
+                                    <option value="1month">Within 1 month</option>
+                                    <option value="3months">1–3 months</option>
+                                    <option value="6months">3–6 months</option>
+                                    <option value="flexible">Flexible</option>
+                                </select>
+                            </div>
+                            <div class="fg">
+                                <label for="message">Tell Us About Your Project</label>
+                                <textarea id="message" name="message" placeholder="Describe your current situation, what you're trying to achieve, and any specific challenges you're facing..."></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit"><span>Send Message & Book Consultation</span></button>
+                            <div id="formStatus"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+    <div class="container">
+        <div class="reveal">
+            <div class="section-tag">Common Questions</div>
+            <h2 class="section-title">Before you reach out,<br><span class="accent">here's what people ask.</span></h2>
+        </div>
+        <div class="faq-grid reveal reveal-delay-1">
+            <div class="faq-item">
+                <h3 class="faq-q">How quickly can you start?</h3>
+                <p class="faq-a">After our initial consultation and scoping, most projects can begin within 1–2 weeks. Urgent requirements like security incidents are handled immediately.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-q">Do you work with small businesses?</h3>
+                <p class="faq-a">Absolutely. We work with businesses of all sizes — from startups building their first website to established companies modernising their entire infrastructure.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-q">What does the consultation involve?</h3>
+                <p class="faq-a">A focused 30-minute call where we learn about your business, current setup, and goals. We'll give you honest advice and a clear picture of how we can help — no obligations.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-q">Are your services available nationally?</h3>
+                <p class="faq-a">Yes. We operate across South Africa and serve clients remotely where on-site presence isn't required. We also handle on-site for businesses in our operational regions.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-q">What if I only need one service?</h3>
+                <p class="faq-a">No problem at all. While we offer bundled solutions, we're happy to assist with a single service area. Many clients start with one and expand as they see results.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-q">Do you offer ongoing contracts?</h3>
+                <p class="faq-a">Yes. We offer monthly retainer packages for IT support, security monitoring, and website maintenance. These can be customised to fit your specific needs and budget.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-top">
+            <div>
+                <div class="footer-logo-text">Sites Solutions</div>
+                <div class="footer-tagline">Power Your Digital Future — Where vision meets execution.</div>
+            </div>
+            <div class="footer-nav-links">
+                <a href="index.html">Home</a>
+                <a href="what-we-do.html">What We Do</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="social-row">
+                <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-copy">© 2025 SitesSolutions. All rights reserved.</span>
+            <span class="footer-copy">Ethan@sitessolutions.co.za · +27 83 298 5934</span>
+        </div>
+    </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+    // Service checkbox toggle
+    document.querySelectorAll('.check-option').forEach(opt => {
+        opt.addEventListener('click', () => {
+            opt.classList.toggle('checked');
+            const cb = opt.querySelector('input[type="checkbox"]');
+            cb.checked = opt.classList.contains('checked');
+        });
+    });
+</script>
+</body>
+</html>
