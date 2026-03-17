@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentricore | Power Your Digital Future</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+    <style>
+        /* ═══ HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 10rem 0 6rem;
+            overflow: hidden;
+        }
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(39,238,245,0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 1px;
+            background: rgba(39,238,245,0.05);
+        }
+        .hero-eyebrow::before {
+            content:'';
+            width:6px; height:6px;
+            background: var(--cyan);
+            border-radius: 50%;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3rem, 5.5vw, 5.5rem);
+            font-weight: 800;
+            line-height: 0.97;
+            letter-spacing: -0.03em;
+            margin-bottom: 2rem;
+        }
+        .hero h1 .line-2 {
+            display: block;
+            background: linear-gradient(90deg, var(--blue) 0%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero h1 .line-1, .hero h1 .line-3 { display:block; }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 1.75;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 480px;
+        }
+        .hero-actions { display:flex; gap:1.2rem; flex-wrap:wrap; }
+
+        /* Hero Visual */
+        .hero-visual {
+            position: relative;
+            height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-orb {
+            position:absolute; width:320px; height:320px; border-radius:50%;
+            background: radial-gradient(circle, rgba(39,142,245,0.15) 0%, rgba(39,238,245,0.08) 40%, transparent 70%);
+            animation: orb-pulse 4s ease-in-out infinite;
+        }
+        @keyframes orb-pulse { 0%,100%{transform:scale(1);opacity:0.8} 50%{transform:scale(1.08);opacity:1} }
+
+        .hero-ring { position:absolute; border-radius:50%; border:1px solid; animation:ring-spin linear infinite; }
+        .ring-1 { width:380px;height:380px; border-color:rgba(39,142,245,0.2); animation-duration:20s; }
+        .ring-2 { width:280px;height:280px; border-color:rgba(39,238,245,0.15); animation-duration:15s; animation-direction:reverse; }
+        .ring-3 { width:460px;height:460px; border-color:rgba(39,142,245,0.08); animation-duration:30s; }
+        @keyframes ring-spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        .ring-1::before,.ring-2::before,.ring-3::before {
+            content:''; position:absolute; top:-4px; left:50%;
+            width:8px;height:8px; border-radius:50%; background:var(--blue);
+            box-shadow:0 0 12px var(--blue-glow); transform:translateX(-50%);
+        }
+        .ring-2::before { background:var(--cyan); box-shadow:0 0 12px var(--cyan-glow); }
+
+        .hero-center-icon {
+            position:relative; z-index:3;
+            width:120px;height:120px;
+            background:linear-gradient(135deg,rgba(39,142,245,0.2),rgba(39,238,245,0.1));
+            border:1px solid rgba(39,238,245,0.3);
+            border-radius:4px;
+            display:flex; align-items:center; justify-content:center;
+            font-size:3rem; color:var(--cyan);
+            box-shadow:0 0 40px rgba(39,238,245,0.2),inset 0 0 30px rgba(39,142,245,0.1);
+            backdrop-filter:blur(10px);
+        }
+        .hero-stat-cards { position:absolute; inset:0; pointer-events:none; }
+        .hcard {
+            position:absolute;
+            background:rgba(8,12,20,0.9);
+            border:1px solid var(--border);
+            border-radius:3px;
+            padding:1rem 1.4rem;
+            backdrop-filter:blur(20px);
+            min-width:150px;
+        }
+        .hcard-label { font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); margin-bottom:0.3rem; }
+        .hcard-val { font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800; background:linear-gradient(90deg,var(--blue),var(--cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .hcard:nth-child(1) { top:8%;right:0; animation:float-card 6s ease-in-out infinite; }
+        .hcard:nth-child(2) { bottom:20%;left:0; animation:float-card 5s ease-in-out infinite 1s; }
+        .hcard:nth-child(3) { bottom:5%;right:5%; animation:float-card 7s ease-in-out infinite 0.5s; }
+        @keyframes float-card { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+        /* ═══ MARQUEE */
+        .marquee-section {
+            padding:1.5rem 0; overflow:hidden;
+            border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+            background:rgba(39,142,245,0.03);
+        }
+        .marquee-track { display:flex; gap:4rem; animation:marquee 20s linear infinite; white-space:nowrap; }
+        .marquee-item {
+            font-family:'Space Mono',monospace; font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase;
+            color:var(--text-muted); display:flex; align-items:center; gap:1.5rem; flex-shrink:0;
+        }
+        .marquee-item .dot { width:4px;height:4px;border-radius:50%;background:var(--blue); }
+        @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+        /* ═══ SERVICES PREVIEW */
+        .services-preview { padding:9rem 0; }
+        .services-grid {
+            display:grid; grid-template-columns:repeat(3,1fr); gap:1.5px;
+            background:var(--border); border:1px solid var(--border); border-radius:4px; overflow:hidden;
+            margin-top:5rem;
+        }
+        .service-card {
+            background:var(--surface); padding:3rem 2.5rem; position:relative; overflow:hidden;
+            transition:background 0.4s; text-decoration:none; color:inherit; display:block;
+        }
+        .service-card::before {
+            content:''; position:absolute; top:0;left:0;right:0; height:2px;
+            background:linear-gradient(90deg,var(--blue),var(--cyan));
+            transform:scaleX(0); transform-origin:left; transition:transform 0.4s ease;
+        }
+        .service-card::after {
+            content:''; position:absolute; bottom:-100px;right:-100px;
+            width:200px;height:200px; border-radius:50%;
+            background:radial-gradient(circle,rgba(39,142,245,0.08) 0%,transparent 70%);
+            transition:all 0.5s ease; opacity:0;
+        }
+        .service-card:hover { background:rgba(8,18,32,0.9); }
+        .service-card:hover::before { transform:scaleX(1); }
+        .service-card:hover::after { opacity:1; bottom:-50px; right:-50px; }
+
+        .sc-num { font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.15em; color:var(--text-muted); margin-bottom:2rem; }
+        .sc-icon {
+            width:52px;height:52px; background:var(--blue-dim); border:1px solid rgba(39,142,245,0.25);
+            border-radius:3px; display:flex; align-items:center; justify-content:center;
+            font-size:1.4rem; color:var(--blue); margin-bottom:1.8rem; transition:all 0.3s;
+        }
+        .service-card:hover .sc-icon { background:rgba(39,238,245,0.1); border-color:rgba(39,238,245,0.4); color:var(--cyan); box-shadow:0 0 20px rgba(39,238,245,0.15); }
+        .sc-title { font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:700; letter-spacing:-0.02em; margin-bottom:1rem; color:var(--white); }
+        .sc-desc { font-size:0.92rem; font-weight:300; line-height:1.7; color:var(--text-muted); margin-bottom:2rem; }
+        .sc-link { font-family:'Space Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--blue); display:flex; align-items:center; gap:0.5rem; transition:color 0.3s,gap 0.3s; }
+        .service-card:hover .sc-link { color:var(--cyan); gap:0.85rem; }
+
+        /* ═══ STATS BAR */
+        .stats-bar { padding:6rem 0; background:var(--surface-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+        .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:0; background:var(--border); border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+        .stat-item { background:var(--surface); padding:2.5rem 2rem; text-align:center; border-right:1px solid var(--border); transition:background 0.3s; }
+        .stat-item:last-child { border-right:none; }
+        .stat-item:hover { background:rgba(10,18,32,0.9); }
+        .stat-num { font-family:'Syne',sans-serif; font-size:3.2rem; font-weight:800; letter-spacing:-0.04em; background:linear-gradient(90deg,var(--blue),var(--cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; line-height:1; margin-bottom:0.6rem; }
+        .stat-lbl { font-size:0.85rem; color:var(--text-muted); font-weight:300; }
+
+        /* ═══ TESTIMONIAL */
+        .testimonial { padding:9rem 0; }
+        .testimonial-inner { max-width:900px; margin:0 auto; text-align:center; }
+        .t-quote-mark { font-family:'Syne',sans-serif; font-size:8rem; font-weight:800; line-height:0.6; background:linear-gradient(90deg,var(--blue),var(--cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; opacity:0.3; margin-bottom:2rem; display:block; }
+        .t-text { font-family:'DM Sans',sans-serif; font-size:clamp(1.2rem,2.5vw,1.7rem); font-weight:300; font-style:italic; line-height:1.75; color:rgba(255,255,255,0.8); margin-bottom:2.5rem; }
+        .t-author { display:inline-flex; align-items:center; gap:1rem; }
+        .t-avatar { width:44px;height:44px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--cyan)); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:800; color:var(--black); font-size:1rem; }
+        .t-name { font-family:'Space Mono',monospace; font-size:0.75rem; letter-spacing:0.1em; color:var(--blue); }
+
+        /* ═══ CTA BANNER */
+        .cta-banner { padding:7rem 0; }
+        .cta-inner {
+            background:linear-gradient(135deg,rgba(39,142,245,0.12) 0%,rgba(39,238,245,0.06) 100%);
+            border:1px solid rgba(39,142,245,0.3); border-radius:4px;
+            padding:5rem 4rem; text-align:center; position:relative; overflow:hidden;
+        }
+        .cta-inner::before {
+            content:''; position:absolute; top:-100%;left:-100%; width:300%;height:300%;
+            background:radial-gradient(circle at center,rgba(39,142,245,0.06) 0%,transparent 60%);
+            animation:cta-glow 8s ease-in-out infinite;
+        }
+        @keyframes cta-glow { 0%,100%{transform:translate(0,0)} 25%{transform:translate(20%,10%)} 50%{transform:translate(-10%,20%)} 75%{transform:translate(10%,-10%)} }
+        .cta-inner h2 { font-family:'Syne',sans-serif; font-size:clamp(2rem,4vw,3.5rem); font-weight:800; letter-spacing:-0.03em; margin-bottom:1.2rem; position:relative; z-index:1; }
+        .cta-inner p { font-size:1.05rem; color:var(--text-muted); margin-bottom:2.5rem; position:relative; z-index:1; }
+        .cta-inner .btn-primary { position:relative; z-index:1; }
+
+        @media(max-width:1100px) {
+            .hero-inner,.services-grid { grid-template-columns:1fr; }
+            .hero-visual { display:none; }
+            .stats-row { grid-template-columns:1fr 1fr; }
+            .stat-item:nth-child(2) { border-right:none; }
+            .stat-item:nth-child(1),.stat-item:nth-child(2) { border-bottom:1px solid var(--border); }
+        }
+        @media(max-width:768px) {
+            .stats-row { grid-template-columns:1fr 1fr; }
+            .cta-inner { padding:3.5rem 2rem; }
+        }
+        @media(max-width:576px) {
+            .stats-row { grid-template-columns:1fr; }
+            .stat-item { border-right:none !important; border-bottom:1px solid var(--border); }
+            .stat-item:last-child { border-bottom:none; }
+        }
+    </style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<canvas id="bg-canvas"></canvas>
+
+<!-- HEADER -->
+<header id="header">
+    <a href="index.html" class="logo">
+    <img src="SentriCore-Logo-No-BG.png" alt="SentriCore" class="logo-img">
+    <span class="logo-wordmark">SentriCore</span>
+</a>
+    <nav id="nav">
+        <a href="index.html" class="nav-active">Home</a>
+        <a href="what-we-do.html">What We Do</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="contact.html" class="nav-cta">Get Started</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-inner">
+            <div class="reveal">
+                <div class="hero-eyebrow">Join The Movement</div>
+                <h1>
+                    <span class="line-1">Power Your</span>
+                    <span class="line-2">Digital</span>
+                    <span class="line-3">Future</span>
+                </h1>
+                <p class="hero-desc">We go beyond traditional IT support. As your strategic partner, we bring together web design, IT, and security so your technology actually helps your business grow.</p>
+                <div class="hero-actions">
+                    <a href="what-we-do.html" class="btn-primary"><span>Explore What We Do</span></a>
+                    <a href="contact.html" class="btn-ghost">Start Your Journey</a>
+                </div>
+            </div>
+            <div class="hero-visual reveal reveal-delay-2">
+                <div class="hero-orb"></div>
+                <div class="hero-ring ring-1"></div>
+                <div class="hero-ring ring-2"></div>
+                <div class="hero-ring ring-3"></div>
+                <div class="hero-center-icon"><i class="fas fa-bolt"></i></div>
+                <div class="hero-stat-cards">
+                    <div class="hcard"><div class="hcard-label">Businesses Powered</div><div class="hcard-val">247+</div></div>
+                    <div class="hcard"><div class="hcard-label">Uptime Guaranteed</div><div class="hcard-val">99%</div></div>
+                    <div class="hcard"><div class="hcard-label">Threats Blocked</div><div class="hcard-val">100/day</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+    <div class="marquee-track">
+        <div class="marquee-item"><span>Web Design</span><div class="dot"></div></div>
+        <div class="marquee-item"><span>Cybersecurity</span><div class="dot"></div></div>
+        <div class="marquee-item"><span>IT Infrastructure</span><div class="dot"></div></div>
+        <div class="marquee-item"><span>AI-Powered Security</span><div class="dot"></div></div>
+        <div class="marquee-item"><span>Custom Software</span><div class="dot"></div></div>
+        <div class="marquee-item"><span>Cloud Solutions</span><div class="dot"></div></div>
+        <div class="marquee-item"><span>24/7 Support</span><div class="dot"></div></div>
+        <div class="marquee-item"><span>Web Design</span><div class="dot"></div></div>
+        <div class="marquee-item"><span>Cybersecurity</span><div class="dot"></div></div>
+        <div class="marquee-item"><span>IT Infrastructure</span><div class="dot"></div></div>
+        <div class="marquee-item"><span>AI-Powered Security</span><div class="dot"></div></div>
+        <div class="marquee-item"><span>Custom Software</span><div class="dot"></div></div>
+        <div class="marquee-item"><span>Cloud Solutions</span><div class="dot"></div></div>
+        <div class="marquee-item"><span>24/7 Support</span><div class="dot"></div></div>
+    </div>
+</div>
+
+<!-- SERVICES PREVIEW -->
+<section class="services-preview">
+    <div class="container">
+        <div class="reveal">
+            <div class="section-tag">What We Do</div>
+            <h2 class="section-title">Three pillars.<br><span class="accent">One partner.</span></h2>
+        </div>
+        <div class="services-grid reveal reveal-delay-1">
+            <a href="what-we-do.html#foundation" class="service-card">
+                <div class="sc-num">01 / Foundation</div>
+                <div class="sc-icon"><i class="fas fa-layer-group"></i></div>
+                <h3 class="sc-title">Digital Foundation</h3>
+                <p class="sc-desc">Clean, conversion-focused websites, domain control, and professional email systems that make your brand impossible to ignore.</p>
+                <span class="sc-link">Learn More <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="what-we-do.html#infrastructure" class="service-card">
+                <div class="sc-num">02 / Infrastructure</div>
+                <div class="sc-icon"><i class="fas fa-server"></i></div>
+                <h3 class="sc-title">IT Support</h3>
+                <p class="sc-desc">On-demand helpdesk, next-gen firewalls, and smart infrastructure stacks that prevent crashes and scale with your growth.</p>
+                <span class="sc-link">Learn More <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="what-we-do.html#security" class="service-card">
+                <div class="sc-num">03 / Security</div>
+                <div class="sc-icon"><i class="fas fa-user-shield"></i></div>
+                <h3 class="sc-title">Cyber Security</h3>
+                <p class="sc-desc">AI-powered threat detection, offensive + defensive security posture, and custom software to stay perpetually ahead.</p>
+                <span class="sc-link">Learn More <i class="fas fa-arrow-right"></i></span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+    <div class="container">
+        <div class="stats-row reveal">
+            <div class="stat-item">
+                <div class="stat-num" data-target="247">0</div>
+                <div class="stat-lbl">Businesses Accelerated</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" data-target="100">0</div>
+                <div class="stat-lbl">Threats Neutralized Daily</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" data-target="99" data-suffix="%">0</div>
+                <div class="stat-lbl">Uptime Guaranteed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" data-target="24">0</div>
+                <div class="stat-lbl">AI Security Features</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial">
+    <div class="container">
+        <div class="testimonial-inner reveal">
+            <span class="t-quote-mark">"</span>
+            <p class="t-text">I've been working with Sentricore for a few months now, and the difference in our digital setup is night and day. Really impressed with how they understand our business needs.</p>
+            <div class="t-author">
+                <div class="t-avatar">L</div>
+                <span class="t-name">Lauren Smith — Client</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+    <div class="container">
+        <div class="cta-inner reveal">
+            <h2>Power Your Digital<br><span class="accent">Future Today</span></h2>
+            <p>Join hundreds of businesses that have transformed their digital presence with Sentricore</p>
+            <a href="contact.html" class="btn-primary"><span>Start Your Journey Now</span></a>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-top">
+            <div>
+                <div class="footer-logo-text">Sentricore</div>
+                <div class="footer-tagline">Power Your Digital Future — Where vision meets execution.</div>
+            </div>
+            <div class="footer-nav-links">
+                <a href="index.html">Home</a>
+                <a href="what-we-do.html">What We Do</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="social-row">
+                <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-copy">© 2025 Sentricore. All rights reserved. Built for the future.</span>
+            <span class="footer-copy">Ethan@Sentricore.co.za · +27 83 298 5934</span>
+        </div>
+    </div>
+</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>

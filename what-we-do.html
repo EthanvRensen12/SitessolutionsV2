@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What We Do | Sentricore</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+    <style>
+        /* ═══ PAGE HERO */
+        .page-hero {
+            padding: 12rem 0 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero-inner { max-width: 800px; }
+        .page-hero-bg {
+            position: absolute;
+            top: 0; right: -200px;
+            width: 700px; height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(39,142,245,0.07) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* ═══ INTRO STRIP */
+        .intro-strip {
+            padding: 4rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--surface-2);
+        }
+        .intro-strip-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .intro-strip-item {
+            background: var(--surface);
+            padding: 2rem 2.5rem;
+            border-right: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem;
+        }
+        .intro-strip-item:last-child { border-right: none; }
+        .isi-icon {
+            width: 40px; height: 40px; flex-shrink: 0;
+            background: var(--blue-dim); border: 1px solid rgba(39,142,245,0.25);
+            border-radius: 2px; display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; color: var(--blue);
+        }
+        .isi-text h4 { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .isi-text p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+
+        /* ═══ SERVICE SECTIONS */
+        .service-section {
+            padding: 8rem 0;
+            position: relative;
+        }
+        .service-section:not(:last-child) {
+            border-bottom: 1px solid var(--border);
+        }
+        .service-section-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: start;
+        }
+        .service-section:nth-child(even) .service-section-inner {
+            direction: rtl;
+        }
+        .service-section:nth-child(even) .service-section-inner > * {
+            direction: ltr;
+        }
+
+        .service-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(39,238,245,0.25);
+            padding: 0.4rem 0.9rem;
+            border-radius: 1px;
+            background: rgba(39,238,245,0.04);
+        }
+        .service-badge i { font-size: 0.75rem; }
+
+        .service-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+        }
+        .service-title .accent {
+            background: linear-gradient(90deg, var(--blue), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .service-desc {
+            font-size: 1.05rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+        }
+        .feature-item {
+            padding: 1.2rem 1.6rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: var(--surface);
+            transition: background 0.3s;
+        }
+        .feature-item:last-child { border-bottom: none; }
+        .feature-item:hover { background: rgba(10,18,32,0.9); }
+        .feature-check {
+            width: 22px; height: 22px; flex-shrink: 0;
+            background: var(--blue-dim); border: 1px solid rgba(39,142,245,0.3);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 0.6rem; color: var(--blue); margin-top: 0.1rem;
+        }
+        .feature-text { display: flex; flex-direction: column; gap: 0.2rem; }
+        .feature-text strong { font-size: 0.9rem; font-weight: 600; color: var(--white); }
+        .feature-text span { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+
+        /* Service Visual Panel */
+        .service-visual {
+            position: relative;
+        }
+        .service-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            position: sticky;
+            top: 120px;
+        }
+        .panel-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            background: rgba(39,142,245,0.04);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .panel-dots { display:flex; gap:0.4rem; }
+        .panel-dot { width:8px;height:8px;border-radius:50%; }
+        .panel-dot:nth-child(1) { background:rgba(255,80,80,0.5); }
+        .panel-dot:nth-child(2) { background:rgba(255,200,0,0.4); }
+        .panel-dot:nth-child(3) { background:rgba(39,238,245,0.4); }
+        .panel-title { font-family:'Space Mono',monospace; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); }
+
+        .panel-body { padding: 2rem; }
+        .panel-metric {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .panel-metric:last-child { border-bottom: none; }
+        .pm-label { font-size: 0.82rem; color: var(--text-muted); }
+        .pm-val { font-family: 'Space Mono', monospace; font-size: 0.82rem; color: var(--cyan); }
+        .pm-bar {
+            width: 80px; height: 3px; background: rgba(255,255,255,0.06);
+            border-radius: 2px; overflow: hidden;
+        }
+        .pm-bar-fill { height: 100%; background: linear-gradient(90deg,var(--blue),var(--cyan)); border-radius: 2px; }
+
+        .panel-icon-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 180px;
+            position: relative;
+        }
+        .pid-icon {
+            font-size: 5rem;
+            background: linear-gradient(135deg, var(--blue), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 2;
+            animation: icon-pulse 3s ease-in-out infinite;
+        }
+        @keyframes icon-pulse { 0%,100%{filter:drop-shadow(0 0 10px rgba(39,142,245,0.4))} 50%{filter:drop-shadow(0 0 25px rgba(39,238,245,0.6))} }
+        .pid-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid;
+            animation: ring-spin linear infinite;
+        }
+        .pid-ring-1 { width:160px;height:160px; border-color:rgba(39,142,245,0.15); animation-duration:12s; }
+        .pid-ring-2 { width:120px;height:120px; border-color:rgba(39,238,245,0.1); animation-duration:8s; animation-direction:reverse; }
+
+        /* ═══ PROCESS */
+        .process-section { padding: 8rem 0; background: var(--surface-2); border-top: 1px solid var(--border); }
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 5rem;
+        }
+        .process-step {
+            background: var(--surface);
+            padding: 2.5rem 2rem;
+            border-right: 1px solid var(--border);
+            position: relative;
+            transition: background 0.3s;
+        }
+        .process-step:last-child { border-right: none; }
+        .process-step:hover { background: rgba(10,18,32,0.9); }
+        .ps-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 3.5rem; font-weight: 800;
+            background: linear-gradient(90deg,rgba(39,142,245,0.2),rgba(39,238,245,0.15));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            line-height: 1; margin-bottom: 1.5rem; letter-spacing: -0.04em;
+        }
+        .ps-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.8rem; }
+        .ps-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+        .ps-arrow {
+            position: absolute;
+            top: 50%; right: -12px;
+            transform: translateY(-50%);
+            width: 22px; height: 22px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.55rem; color: var(--blue);
+            z-index: 2;
+        }
+        .process-step:last-child .ps-arrow { display: none; }
+
+        /* ═══ PRICING TEASE */
+        .cta-banner { padding:7rem 0; }
+        .cta-inner {
+            background:linear-gradient(135deg,rgba(39,142,245,0.12) 0%,rgba(39,238,245,0.06) 100%);
+            border:1px solid rgba(39,142,245,0.3); border-radius:4px;
+            padding:5rem 4rem; text-align:center; position:relative; overflow:hidden;
+        }
+        .cta-inner::before {
+            content:''; position:absolute; top:-100%;left:-100%; width:300%;height:300%;
+            background:radial-gradient(circle at center,rgba(39,142,245,0.06) 0%,transparent 60%);
+            animation:cta-glow 8s ease-in-out infinite;
+        }
+        @keyframes cta-glow { 0%,100%{transform:translate(0,0)} 25%{transform:translate(20%,10%)} 50%{transform:translate(-10%,20%)} 75%{transform:translate(10%,-10%)} }
+        .cta-inner h2 { font-family:'Syne',sans-serif; font-size:clamp(2rem,4vw,3.5rem); font-weight:800; letter-spacing:-0.03em; margin-bottom:1.2rem; position:relative;z-index:1; }
+        .cta-inner p { font-size:1.05rem; color:var(--text-muted); margin-bottom:2.5rem; position:relative;z-index:1; }
+        .cta-inner .btn-primary { position:relative;z-index:1; }
+
+        @media(max-width:1100px) {
+            .service-section-inner { grid-template-columns:1fr; gap:3rem; }
+            .service-section:nth-child(even) .service-section-inner { direction:ltr; }
+            .service-panel { position:static; }
+            .intro-strip-inner { grid-template-columns:1fr; }
+            .intro-strip-item { border-right:none; border-bottom:1px solid var(--border); }
+            .intro-strip-item:last-child { border-bottom:none; }
+            .process-steps { grid-template-columns:1fr 1fr; }
+            .process-step:nth-child(2) { border-right:none; }
+            .process-step:nth-child(1),.process-step:nth-child(2) { border-bottom:1px solid var(--border); }
+            .ps-arrow { display:none; }
+        }
+        @media(max-width:768px) {
+            .process-steps { grid-template-columns:1fr; }
+            .process-step { border-right:none; border-bottom:1px solid var(--border); }
+            .process-step:last-child { border-bottom:none; }
+        }
+    </style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<canvas id="bg-canvas"></canvas>
+
+<header id="header">
+    <a href="index.html" class="logo">
+    <img src="SentriCore-Logo-No-BG.png" alt="SentriCore" class="logo-img">
+    <span class="logo-wordmark">SentriCore</span>
+</a>
+    <nav id="nav">
+        <a href="index.html">Home</a>
+        <a href="what-we-do.html" class="nav-active">What We Do</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="contact.html" class="nav-cta">Get Started</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="container">
+        <div class="page-hero-inner reveal">
+            <div class="section-tag">Our Services</div>
+            <h1 class="section-title" style="font-size:clamp(2.8rem,5vw,5rem);margin-bottom:1.5rem;">
+                Everything your<br><span class="accent">business needs</span><br>to thrive digitally.
+            </h1>
+            <p class="section-sub">From building your digital presence to securing it and scaling it — we cover the full spectrum so you never need another technology partner.</p>
+        </div>
+    </div>
+</section>
+
+<!-- INTRO STRIP -->
+<div class="intro-strip">
+    <div class="container">
+        <div class="intro-strip-inner reveal">
+            <div class="intro-strip-item">
+                <div class="isi-icon"><i class="fas fa-layer-group"></i></div>
+                <div class="isi-text">
+                    <h4>Digital Foundation</h4>
+                    <p>Websites, domains, branding, email systems</p>
+                </div>
+            </div>
+            <div class="intro-strip-item">
+                <div class="isi-icon"><i class="fas fa-server"></i></div>
+                <div class="isi-text">
+                    <h4>IT Infrastructure</h4>
+                    <p>Support, networks, hardware, cloud</p>
+                </div>
+            </div>
+            <div class="intro-strip-item">
+                <div class="isi-icon"><i class="fas fa-user-shield"></i></div>
+                <div class="isi-text">
+                    <h4>Cyber Security</h4>
+                    <p>AI protection, monitoring, custom software</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SERVICE 1: FOUNDATION -->
+<section class="service-section" id="foundation">
+    <div class="container">
+        <div class="service-section-inner">
+            <div class="reveal">
+                <div class="service-badge"><i class="fas fa-layer-group"></i> 01 / Digital Foundation</div>
+                <h2 class="service-title">Your brand's<br><span class="accent">digital home.</span></h2>
+                <p class="service-desc">We build a powerful, conversion-focused digital presence from the ground up. Every pixel serves a purpose, every interaction is intentional, and every system is built to perform.</p>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="feature-check"><i class="fas fa-check"></i></div>
+                        <div class="feature-text">
+                            <strong>Web Creation, Reinvented</strong>
+                            <span>Clean, fast, conversion-focused websites built with modern technology and designed for results</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-check"><i class="fas fa-check"></i></div>
+                        <div class="feature-text">
+                            <strong>Domain & Identity Control</strong>
+                            <span>Secure, configure, and optimize your domain — your digital identity locked down and professional</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-check"><i class="fas fa-check"></i></div>
+                        <div class="feature-text">
+                            <strong>Smart Email Systems</strong>
+                            <span>Professional, fully-managed email infrastructure that works flawlessly across every device</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-check"><i class="fas fa-check"></i></div>
+                        <div class="feature-text">
+                            <strong>SEO & Performance Optimization</strong>
+                            <span>Speed, search visibility, and technical excellence baked in from day one</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="contact.html" class="btn-primary"><span>Build Your Foundation</span></a>
+            </div>
+            <div class="service-visual reveal reveal-delay-2">
+                <div class="service-panel">
+                    <div class="panel-header">
+                        <div class="panel-dots"><div class="panel-dot"></div><div class="panel-dot"></div><div class="panel-dot"></div></div>
+                        <span class="panel-title">Website Performance</span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-icon-display">
+                            <div class="pid-ring pid-ring-1"></div>
+                            <div class="pid-ring pid-ring-2"></div>
+                            <i class="fas fa-globe pid-icon"></i>
+                        </div>
+                        <div class="panel-metric">
+                            <span class="pm-label">Page Speed Score</span>
+                            <div class="pm-bar"><div class="pm-bar-fill" style="width:96%"></div></div>
+                            <span class="pm-val">96/100</span>
+                        </div>
+                        <div class="panel-metric">
+                            <span class="pm-label">Mobile Optimized</span>
+                            <div class="pm-bar"><div class="pm-bar-fill" style="width:100%"></div></div>
+                            <span class="pm-val">100%</span>
+                        </div>
+                        <div class="panel-metric">
+                            <span class="pm-label">SEO Visibility</span>
+                            <div class="pm-bar"><div class="pm-bar-fill" style="width:88%"></div></div>
+                            <span class="pm-val">88/100</span>
+                        </div>
+                        <div class="panel-metric">
+                            <span class="pm-label">Uptime SLA</span>
+                            <div class="pm-bar"><div class="pm-bar-fill" style="width:99%"></div></div>
+                            <span class="pm-val">99.9%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICE 2: IT SUPPORT -->
+<section class="service-section" id="infrastructure">
+    <div class="container">
+        <div class="service-section-inner">
+            <div class="reveal">
+                <div class="service-badge"><i class="fas fa-server"></i> 02 / IT Infrastructure</div>
+                <h2 class="service-title">Technology that<br><span class="accent">never lets you down.</span></h2>
+                <p class="service-desc">We set up and manage the technology backbone your business runs on — preventing crashes before they happen, scaling as you grow, and keeping costs under control.</p>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="feature-check"><i class="fas fa-check"></i></div>
+                        <div class="feature-text">
+                            <strong>On-Demand IT Support</strong>
+                            <span>Helpdesk, hardware troubleshooting, and on-site support whenever you need it most</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-check"><i class="fas fa-check"></i></div>
+                        <div class="feature-text">
+                            <strong>Next-Gen Firewalls & Networks</strong>
+                            <span>Enterprise-grade network security that scales alongside your business growth</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-check"><i class="fas fa-check"></i></div>
+                        <div class="feature-text">
+                            <strong>Smart Infrastructure Design</strong>
+                            <span>Tech stacks engineered to cut operational costs while maximizing efficiency and reliability</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-check"><i class="fas fa-check"></i></div>
+                        <div class="feature-text">
+                            <strong>Cloud & Hybrid Solutions</strong>
+                            <span>Migrate, manage, and optimize cloud environments that work for your specific needs</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="contact.html" class="btn-primary"><span>Scale Your Infrastructure</span></a>
+            </div>
+            <div class="service-visual reveal reveal-delay-2">
+                <div class="service-panel">
+                    <div class="panel-header">
+                        <div class="panel-dots"><div class="panel-dot"></div><div class="panel-dot"></div><div class="panel-dot"></div></div>
+                        <span class="panel-title">Infrastructure Health</span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-icon-display">
+                            <div class="pid-ring pid-ring-1"></div>
+                            <div class="pid-ring pid-ring-2"></div>
+                            <i class="fas fa-server pid-icon"></i>
+                        </div>
+                        <div class="panel-metric">
+                            <span class="pm-label">Network Uptime</span>
+                            <div class="pm-bar"><div class="pm-bar-fill" style="width:99%"></div></div>
+                            <span class="pm-val">99.9%</span>
+                        </div>
+                        <div class="panel-metric">
+                            <span class="pm-label">Response Time</span>
+                            <div class="pm-bar"><div class="pm-bar-fill" style="width:95%"></div></div>
+                            <span class="pm-val">&lt; 2hrs</span>
+                        </div>
+                        <div class="panel-metric">
+                            <span class="pm-label">Cost Reduction</span>
+                            <div class="pm-bar"><div class="pm-bar-fill" style="width:40%"></div></div>
+                            <span class="pm-val">~40%</span>
+                        </div>
+                        <div class="panel-metric">
+                            <span class="pm-label">Availability</span>
+                            <div class="pm-bar"><div class="pm-bar-fill" style="width:100%"></div></div>
+                            <span class="pm-val">24/7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICE 3: SECURITY -->
+<section class="service-section" id="security">
+    <div class="container">
+        <div class="service-section-inner">
+            <div class="reveal">
+                <div class="service-badge"><i class="fas fa-user-shield"></i> 03 / Cyber Security</div>
+                <h2 class="service-title">Threats stopped<br><span class="accent">before they start.</span></h2>
+                <p class="service-desc">We protect your business with military-grade security systems powered by AI. Our offense-plus-defense approach keeps you perpetually ahead of attackers — and ahead of the competition.</p>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="feature-check"><i class="fas fa-check"></i></div>
+                        <div class="feature-text">
+                            <strong>Offense + Defense Cybersecurity</strong>
+                            <span>Proactive threat monitoring combined with rapid incident response — full-spectrum protection</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-check"><i class="fas fa-check"></i></div>
+                        <div class="feature-text">
+                            <strong>AI-Powered Threat Detection</strong>
+                            <span>Machine learning systems that predict, prevent, and neutralize threats in real time</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-check"><i class="fas fa-check"></i></div>
+                        <div class="feature-text">
+                            <strong>Custom Software Solutions</strong>
+                            <span>Tailor-made applications built specifically for your business operations and competitive edge</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-check"><i class="fas fa-check"></i></div>
+                        <div class="feature-text">
+                            <strong>Compliance & Risk Management</strong>
+                            <span>Stay compliant with industry regulations while minimising exposure to risk</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="contact.html" class="btn-primary"><span>Future-Proof Your Business</span></a>
+            </div>
+            <div class="service-visual reveal reveal-delay-2">
+                <div class="service-panel">
+                    <div class="panel-header">
+                        <div class="panel-dots"><div class="panel-dot"></div><div class="panel-dot"></div><div class="panel-dot"></div></div>
+                        <span class="panel-title">Security Status</span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-icon-display">
+                            <div class="pid-ring pid-ring-1"></div>
+                            <div class="pid-ring pid-ring-2"></div>
+                            <i class="fas fa-shield-alt pid-icon"></i>
+                        </div>
+                        <div class="panel-metric">
+                            <span class="pm-label">Threats Blocked Today</span>
+                            <div class="pm-bar"><div class="pm-bar-fill" style="width:100%"></div></div>
+                            <span class="pm-val">100%</span>
+                        </div>
+                        <div class="panel-metric">
+                            <span class="pm-label">AI Detection Rate</span>
+                            <div class="pm-bar"><div class="pm-bar-fill" style="width:99%"></div></div>
+                            <span class="pm-val">99.7%</span>
+                        </div>
+                        <div class="panel-metric">
+                            <span class="pm-label">Response Time</span>
+                            <div class="pm-bar"><div class="pm-bar-fill" style="width:98%"></div></div>
+                            <span class="pm-val">&lt; 60s</span>
+                        </div>
+                        <div class="panel-metric">
+                            <span class="pm-label">Active Monitoring</span>
+                            <div class="pm-bar"><div class="pm-bar-fill" style="width:100%"></div></div>
+                            <span class="pm-val">24/7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section">
+    <div class="container">
+        <div class="reveal">
+            <div class="section-tag">How We Work</div>
+            <h2 class="section-title">From first call to<br><span class="accent">fully operational.</span></h2>
+        </div>
+        <div class="process-steps reveal reveal-delay-1">
+            <div class="process-step">
+                <div class="ps-num">01</div>
+                <h3 class="ps-title">Discovery Call</h3>
+                <p class="ps-desc">We learn about your business, your current tech setup, goals, and pain points in a focused 30-minute consultation.</p>
+                <div class="ps-arrow"><i class="fas fa-arrow-right"></i></div>
+            </div>
+            <div class="process-step">
+                <div class="ps-num">02</div>
+                <h3 class="ps-title">Custom Strategy</h3>
+                <p class="ps-desc">We build a tailored technology roadmap with clear timelines, deliverables, and expected outcomes for your situation.</p>
+                <div class="ps-arrow"><i class="fas fa-arrow-right"></i></div>
+            </div>
+            <div class="process-step">
+                <div class="ps-num">03</div>
+                <h3 class="ps-title">Build & Deploy</h3>
+                <p class="ps-desc">Our team executes the plan with precision, keeping you informed at every milestone and minimising disruption.</p>
+                <div class="ps-arrow"><i class="fas fa-arrow-right"></i></div>
+            </div>
+            <div class="process-step">
+                <div class="ps-num">04</div>
+                <h3 class="ps-title">Ongoing Support</h3>
+                <p class="ps-desc">We don't disappear after launch. Continuous monitoring, updates, and a dedicated support line — always on.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-banner">
+    <div class="container">
+        <div class="cta-inner reveal">
+            <h2>Ready to get<br><span class="accent">started?</span></h2>
+            <p>Tell us about your project and we'll put together a custom plan in 24 hours</p>
+            <a href="contact.html" class="btn-primary"><span>Book a Free Consultation</span></a>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-top">
+            <div>
+                <div class="footer-logo-text">Sentricore</div>
+                <div class="footer-tagline">Power Your Digital Future — Where vision meets execution.</div>
+            </div>
+            <div class="footer-nav-links">
+                <a href="index.html">Home</a>
+                <a href="what-we-do.html">What We Do</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="social-row">
+                <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-copy">© 2025 Sentricore. All rights reserved.</span>
+            <span class="footer-copy">Ethan@Sentricore.co.za · +27 83 298 5934</span>
+        </div>
+    </div>
+</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>
